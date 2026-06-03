@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="page-wrap">
+    <div class="page">
+        <header class="hero">
+            <span class="badge">Powered by AI</span>
+            <h1>AI Resume Analyzer</h1>
+            <p class="subtitle">Get instant, actionable feedback on your resume</p>
+            <p class="description">
+                Upload your PDF or Word resume and our AI will review formatting,
+                keywords, clarity, and job-fit so you can land more interviews.
+            </p>
+            <ul class="hero-highlights">
+                <li>Scores your resume in under 2 minutes</li>
+                <li>Tailored tips for tech, business & creative roles</li>
+                <li>Your file stays on your device until you analyze</li>
+            </ul>
+        </header>
+
+        <main class="workspace">
+            <section class="upload-panel" aria-label="Resume upload">
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-zone-inner">
+                        <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <div class="upload-copy">
+                            <p class="upload-text">Drop your resume here</p>
+                            <p class="upload-hint">PDF or DOCX · Max 5 MB</p>
+                        </div>
+                    </div>
+                    <input type="file" id="resumeInput" accept=".pdf,.doc,.docx" hidden>
+                    <label for="resumeInput" class="btn btn-primary">Choose file</label>
+                </div>
+
+                <div class="action-row">
+                    <p class="file-name" id="fileName" hidden></p>
+                    <button type="button" class="btn btn-secondary" id="analyzeBtn" disabled>Analyze Resume</button>
+                </div>
+            </section>
+
+            <ul class="features">
+                <li class="feature-card">
+                    <span class="feature-label">01</span>
+                    ATS keyword check
+                </li>
+                <li class="feature-card">
+                    <span class="feature-label">02</span>
+                    Grammar & clarity tips
+                </li>
+                <li class="feature-card">
+                    <span class="feature-label">03</span>
+                    Section structure review
+                </li>
+            </ul>
+        </main>
+    </div>
+
+        <section class="how-it-works" aria-labelledby="how-heading">
+            <h2 id="how-heading" class="section-title">How it works</h2>
+            <ol class="steps">
+                <li class="step-card">
+                    <span class="step-num">1</span>
+                    <h3>Upload</h3>
+                    <p>Drop your PDF or DOCX. We read layout, headings, and bullet structure.</p>
+                </li>
+                <li class="step-card">
+                    <span class="step-num">2</span>
+                    <h3>Analyze</h3>
+                    <p>AI checks ATS keywords, grammar, length, and missing sections.</p>
+                </li>
+                <li class="step-card">
+                    <span class="step-num">3</span>
+                    <h3>Improve</h3>
+                    <p>Get a prioritized list of fixes you can apply before your next application.</p>
+                </li>
+            </ol>
+        </section>
+
+        <footer class="site-footer">
+            <div class="trust-pills">
+                <span class="trust-pill">Private upload</span>
+                <span class="trust-pill">No account required</span>
+                <span class="trust-pill">Free to try</span>
+            </div>
+            <p class="footer-note">Built for job seekers who want clearer, stronger resumes — not generic templates.</p>
+        </footer>
+    </div>
+
+    <script>
+        const input = document.getElementById('resumeInput');
+        const fileName = document.getElementById('fileName');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const uploadZone = document.getElementById('uploadZone');
+
+        input.addEventListener('change', () => {
+            const file = input.files[0];
+            if (file) {
+                fileName.textContent = file.name;
+                fileName.hidden = false;
+                analyzeBtn.disabled = false;
+            }
+        });
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                input.files = e.dataTransfer.files;
+                fileName.textContent = file.name;
+                fileName.hidden = false;
+                analyzeBtn.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+</html>
